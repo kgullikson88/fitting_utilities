@@ -1,5 +1,6 @@
 from setuptools import setup
 
+requires = ['numpy', 'scipy', 'statsmodels', 'pandas', 'matplotlib', 'emcee', 'pymultinest', 'corner', 'astropy']
 
 setup(name='fitting_utilities',
       version='0.1.0',
@@ -14,4 +15,5 @@ setup(name='fitting_utilities',
           'Programming Language :: Python',
           'Topic :: Scientific/Engineering :: Astronomy',
       ],
-      packages=['fitters'])
+      packages=['fitters'],
+      install_requires=requires)
