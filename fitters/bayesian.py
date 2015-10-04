@@ -3,7 +3,26 @@ Implements Bayesian_LS, a class the makes MCMC sampling with either emcee or pym
 object-oriented, and requires only defining the model to fit and priors on the parameters.
 """
 
-import numpy as np 
+from __future__ import print_function, division, absolute_import
+
+import logging
+import os
+import glob
+import json
+
+import numpy as np
+from scipy.optimize import fmin
+import pandas as pd
+import matplotlib.pyplot as plt
+
+from .utils import ensure_dir
+
+
+try:
+    import corner
+except ImportError:
+    import triangle as corner
+
 try:
 	import emcee
 except ImportError:
@@ -346,7 +365,7 @@ class Bayesian_LS(object):
                 return
 
             samples = self.samples[self.param_names].as_matrix()
-            triangle.corner(samples, labels=self.param_names, **kws)
+            corner.corner(samples, labels=self.param_names, **kws)
             return
 
 

@@ -1,6 +1,9 @@
 """
 Defines a few functions linear fits
 """
+
+from __future__ import print_function, division, absolute_import
+
 import numpy as np
 import statsmodels.api as sm
 from statsmodels.robust.norms import TukeyBiweight
@@ -40,18 +43,18 @@ def RobustFit(x, y, fitorder=3, weight_fcn=TukeyBiweight(), badregions=None):
 
 
 def ChebFit2D(x, y, z, x_degree=2, y_degree=2):
-	""" 
-	Perform a fit to a 2D polynomial with point z=f(x,y)
-	
-	:param x: numpy.ndarray with the x-coordinates of the function to fit
-	:param y: numpy.ndarray with the y-coordinates of the function to fit
-	:param z: numpy.ndarray with the z-coordinates of the function to fit
-	:param x_degree: The degree of the chebyshev polynomial in the x direction
-	:param y_degree: The degree of the chebyshev polynomial in the y direction
+    """
+    Perform a fit to a 2D polynomial with point z=f(x,y)
+
+    :param x: numpy.ndarray with the x-coordinates of the function to fit
+    :param y: numpy.ndarray with the y-coordinates of the function to fit
+    :param z: numpy.ndarray with the z-coordinates of the function to fit
+    :param x_degree: The degree of the chebyshev polynomial in the x direction
+    :param y_degree: The degree of the chebyshev polynomial in the y direction
 
     Returns a function that takes new values of (x,y) and returns the fitted z
 
-	"""
+    """
     p_init = Chebyshev2D(x_degree=x_degree, y_degree=y_degree)
     f = fitting.LinearLSQFitter()
 
