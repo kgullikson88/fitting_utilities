@@ -9,6 +9,7 @@ import logging
 import os
 import glob
 import json
+import warnings
 
 import numpy as np
 from scipy.optimize import fmin
@@ -62,13 +63,18 @@ class Bayesian_LS(object):
             return np.poly1d(p)(x)
 
 
-        def _lnlike(self, pars):
+        def lnlike(self, pars):
             """
             likelihood function. This uses the class variables for x,y,xerr, and yerr, as well as the 'model' instance.
             """
             y_pred = self.model(pars, self.x)  # Predict the y value
             # Make the log-likelihood
             return -0.5 * np.sum((self.y - y_pred) ** 2 / self.yerr * 2 + np.log(2*np.pi*self.yerr**2))
+
+
+        def _lnlike(self, pars):
+            warnings.warn('Use fitter.lnlike instead of fitter._lnlike!', DeprecationWarning)
+            return self.lnlike(pars)
 
 
         def lnprior(self, pars):
